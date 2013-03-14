@@ -148,7 +148,7 @@ def moveAxial():
 
 def addRootGroup(list_of_roots):
 
-    group_indexes = [11, 0, 40, 70, 80, 140, 200]
+    group_indexes = [11]
 
     print("there are %d roots" % len(list_of_roots))
 
@@ -158,7 +158,7 @@ def addRootGroup(list_of_roots):
         if group_in > len(list_of_roots):
             break
         
-        rootgroup = list_of_roots[group_in]
+        rootgroup = list_of_roots[group_in].split('\\')[1]
         
         urlstring = 'http://localhost:8888/series/%s' % rootgroup 
 
@@ -243,8 +243,8 @@ add_cube = bpy.ops.mesh.primitive_cube_add
 
 bpy.ops.object.select_all( action='DESELECT' )
 
-binary_location = '/Users/Administrator/development/bindata'
-raw_location = '/Users/Administrator/development/rawdata'
+binary_location = '/Users/Administrator/connectivity-blend/bindata'
+raw_location = '/Users/Administrator/connectivity-blend/rawdata'
 
 list_of_binmesh = glob.glob(binary_location + '/*')
 list_of_roots = []
@@ -255,10 +255,11 @@ for mes in list_of_binmesh:
     if ms not in list_of_roots:
         list_of_roots.append(ms)    
     
+print(list_of_roots[0])
       
 clearAllMeshes()
 clearAllCurves()
-#addRootGroup(list_of_roots)
+addRootGroup(list_of_roots)
 
 layerList = [False]*20
 layerList[0] = True
