@@ -148,7 +148,7 @@ def moveAxial():
 
 def addRootGroup(list_of_roots):
 
-    group_indexes = [11]
+    group_indexes = range(50,100)
 
     print("there are %d roots" % len(list_of_roots))
 
@@ -257,8 +257,8 @@ for mes in list_of_binmesh:
     
 print(list_of_roots[0])
       
-clearAllMeshes()
-clearAllCurves()
+#clearAllMeshes()
+#clearAllCurves()
 addRootGroup(list_of_roots)
 
 layerList = [False]*20
@@ -280,7 +280,7 @@ if shouldAddCube:
 
 printSummary()
 #moveCoronal()
-#moveSag()
-moveAxial()
+moveSag()
+#moveAxial()
 setSun()
 
