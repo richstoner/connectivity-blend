@@ -2,6 +2,10 @@
 ## Eclipse
 #################
 
+id_rsa
+id_rsa.pub
+s3cfg
+
 *.png
 *.blend
 *.ini

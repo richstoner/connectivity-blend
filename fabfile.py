@@ -54,6 +54,7 @@ def terminate():
 
 def test():
 	run('uname -a')
+	run('lsb_release -a')	
 
 def createXL():
 	'''creates an m3.xlarge - 15 GiB memory, 13ECU (4x3.25)'''
@@ -258,6 +259,8 @@ def setupBlenderEnvironment():
 
 	with settings(warn_only=True):
 
+		sudo('add-apt-repository ppa:irie/blender')
+		sudo('apt-get update')
 		sudo('apt-get -y install blender')
 
 		put('id_rsa.pub','~/.ssh/id_rsa.pub')
@@ -273,6 +276,49 @@ def setupBlenderEnvironment():
 
 
 
+def _notebook():
+	'''install python notebook'''
+	with settings(warn_only=True):
+
+		put('id_rsa.pub','~/.ssh/id_rsa.pub')
+		put('id_rsa', '~/.ssh/id_rsa')
+		
+		sudo('chmod 0600 .ssh/id_rsa')
+		sudo('chmod 0600 .ssh/id_rsa.pub')
+
+		sudo('easy_install readline')
+		sudo('apt-get install -y libfreetype6-dev libpng12-dev python-matplotlib')
+
+		sudo('pip install -U requests')
+		sudo('pip install -U beautifulsoup4')
+		sudo('pip install pyzmq')
+		sudo('pip install workerpool')
+		# sudo('pip install -U matplotlib')
+
+		run('ipython profile create default')
+		run('ipython profile create nbserver')
+		run("rm -rvf ~/.ipython/profile_nbserver")
+		put('profile_nbserver.zip', '.ipython/profile_nbserver.zip')
+
+		with cd('.ipython'):
+			run('unzip profile_nbserver.zip')		
+			run('rm profile_nbserver.zip')
+
+		put('supervisord.conf.ipython')
+		sudo('mv supervisord.conf.ipython /home/ubuntu/config/supervisord.conf')
+		sudo('rm /etc/supervisord.conf')
+		sudo('ln -s /home/ubuntu/config/supervisord.conf /etc/supervisord.conf')
+
+		put('supervisor.start')
+		sudo('supervisord')
+		sudo('chmod +x supervisor.start')
+		sudo('chown root:root supervisor.start')
+		sudo('mv /home/ubuntu/supervisor.start /etc/init.d/supervisor')
+		sudo('update-rc.d -f supervisor remove')
+		sudo('update-rc.d supervisor defaults')
+		sudo('supervisorctl restart all')
+
+
 def connectivity():
 
 	with settings(warn_only=True):
@@ -281,7 +327,7 @@ def connectivity():
 		
 		# get the most recent version, or clone to directory
 		if exists('connectivity-blend'):
-			with cd('nap'):
+			with cd('connectivity-blend'):
 				run('git pull --rebase')
 		else:
 			run('git clone git@github.com:richstoner/connectivity-blend.git')				
