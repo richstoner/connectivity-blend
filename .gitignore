@@ -2,9 +2,12 @@
 ## Eclipse
 #################
 
+*.png
+*.blend
+*.ini
 bindata
 rawdata
-
+blendfiles
 
 *.pydevproject
 .project
