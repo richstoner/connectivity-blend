@@ -71,14 +71,12 @@ def renderV1():
 
     moveSag()
 
-    render_x_res = 1280/2
-    render_y_res = 720/2
+    render_x_res = 1280*4
+    render_y_res = 720*4
     bpy.data.scenes['Scene'].render.resolution_x = render_x_res
     bpy.data.scenes['Scene'].render.resolution_y = render_y_res
 
     import os
-
-    
 
     # the connectivity coordinate space is :
     # 133 x 81 x 115 
@@ -89,8 +87,6 @@ def renderV1():
     offset = 10    
     spacing = 5
     v_start = 150 - 10 
-
-    
 
     # for sagittal 
     for i in range(10, 20):
