@@ -223,11 +223,6 @@ def addRootGroup(list_of_roots):
        
             i+=1
 
-
-        # combine group
-        
-
-#        bpy.context.scene.objects.active = bpy.context.selected_objects[0]
         bpy.context.scene.objects.active = bpy.data.objects[("%s-0000" % (rootgroup))]
         bpy.ops.object.join()
         bpy.data.curves[("%s-0000" % (rootgroup))].bevel_depth = 0.025
@@ -238,9 +233,6 @@ def addRootGroup(list_of_roots):
 
         
 add_cube = bpy.ops.mesh.primitive_cube_add
-
-        
-
 bpy.ops.object.select_all( action='DESELECT' )
 
 binary_location = '/Users/Administrator/connectivity-blend/bindata'

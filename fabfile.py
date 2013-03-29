@@ -134,11 +134,9 @@ def install():
 
 	with settings(warn_only=True):
 
-		_enableNeuroDebian()
 		_base()
-		_provision()
-		_externals()
-
+		setupBlenderEnvironment()
+		connectivity()
 		pass
 
 
